@@ -3,7 +3,7 @@
 set -e
 
 if [[ -n "${DOCKERCFG}" ]]; then
-  echo ${DOCKERCFG} > /root/.dockercfg
+  echo "${DOCKERCFG}" > /root/.dockercfg
 fi
 
 exec buildkite-agent start $@
