@@ -9,7 +9,7 @@ TimeoutStartSec=0
 TimeoutStopSec=0
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent
-Environment=VERSION=1.0-beta.21
+Environment=VERSION=1.0-beta.21-docker-1.5.0
 Environment=CONTAINER=buildkite-agent
 
 ExecStartPre=-/usr/bin/docker kill ${CONTAINER}
