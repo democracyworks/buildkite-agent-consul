@@ -20,6 +20,7 @@ ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env BUILDKITE_AGENT_TOKEN=$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/agent-token?raw) \
   --env BUILDKITE_AGENT_META_DATA=coreos=true \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
+  --env FLEETCTL_ENDPOINT=http://${COREOS_PRIVATE_IPV4}:4001 \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   ${DOCKER_REPO}:${VERSION}'
 
