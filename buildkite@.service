@@ -17,10 +17,10 @@ ExecStartPre=-/usr/bin/docker rm ${CONTAINER}
 ExecStartPre=/usr/bin/docker pull ${DOCKER_REPO}:${VERSION}
 
 ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
-  --volume /usr/bin/docker:/usr/bin/docker --volume /var/run/docker.sock:/var/run/docker.sock \
   --env BUILDKITE_AGENT_TOKEN=$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/agent-token?raw) \
   --env BUILDKITE_AGENT_META_DATA=coreos=true \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
   ${DOCKER_REPO}:${VERSION}'
 
 # USR2 will tell the agent to wrap up any currently-running builds and then shutdown
