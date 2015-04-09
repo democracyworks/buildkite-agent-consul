@@ -5,8 +5,8 @@ Requires=docker.service
 
 [Service]
 EnvironmentFile=/etc/environment
-TimeoutStartSec=0
-TimeoutStopSec=0
+TimeoutStartSec=10m
+TimeoutStopSec=10m
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent
 Environment=VERSION=1.0-beta.21-docker-1.5.0
