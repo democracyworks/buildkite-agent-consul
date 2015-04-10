@@ -24,17 +24,12 @@ IMAGE_TAG=$(echo $DOCKER_IMAGE | awk -F: '{print $2}')
 
 echo '--- updating fleet service template'
 perl -p -i -e "s/^Environment=VERSION=.+$/Environment=VERSION=${IMAGE_TAG}/" buildkite@.service
-if [[ $CI = "true" ]]; then
-  fleetctl="docker run --net=host --rm cap10morgan/fleetctl:0.9.1"
-else
-  fleetctl="fleetctl"
-fi
 
-$fleetctl destroy buildkite@.service
-$fleetctl submit buildkite@.service
+fleetctl destroy buildkite@.service
+fleetctl submit buildkite@.service
 
 echo '--- (re-)starting fleet service instances'
 for i in {1..3}; do
-  $fleetctl destroy buildkite@$i
-  $fleetctl start buildkite@$i
+  fleetctl destroy buildkite@$i
+  fleetctl start buildkite@$i
 done

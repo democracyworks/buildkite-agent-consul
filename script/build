@@ -7,7 +7,7 @@ if [[ -z $DOCKER_REPO && -n $1 ]]; then
 fi
 
 echo '--- pulling latest base image'
-docker pull $(grep '^FROM' $(dirname "$0")/Dockerfile | awk '{print $2}')
+docker pull $(grep '^FROM' Dockerfile | awk '{print $2}')
 
 echo '--- building docker image'
 if [[ -z $BUILDBOX_BRANCH ]]; then
@@ -24,7 +24,7 @@ fi
 
 IMAGE_TAG=${BRANCH}-$(git rev-parse --short ${COMMIT})
 
-docker build -t $DOCKER_REPO:$IMAGE_TAG $(dirname $0)
+docker build -t $DOCKER_REPO:$IMAGE_TAG .
 
 if [[ $CI = "true" && $BUILDBOX_PULL_REQUEST = "false" ]]; then
   echo '--- pushing docker image to registry'
