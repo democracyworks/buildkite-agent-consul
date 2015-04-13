@@ -13,7 +13,7 @@ if [[ -z $DOCKER_IMAGE ]]; then
   if [[ -n $1 ]]; then
     DOCKER_IMAGE=$1
   elif hash buildkite-agent 2>/dev/null; then
-    DOCKER_IMAGE=$(buildkite-agent build-data get docker-image)
+    DOCKER_IMAGE=$(buildkite-agent meta-data get docker-image)
   fi
 fi
 

@@ -13,7 +13,6 @@ ADD https://github.com/coreos/fleet/releases/download/v${FLEETCTL_VERSION}/fleet
 RUN tar -C /tmp -xzf /tmp/fleet.tar.gz && mv /tmp/fleet-v${FLEETCTL_VERSION}-linux-amd64/fleetctl /bin/ && \
     rm -rf /tmp/fleet-v${FLEETCTL_VERSION}-linux-amd64 && rm /tmp/fleet.tar.gz
 
-COPY ./start /bin/start
-
-ENTRYPOINT ["/bin/start"]
-CMD []
+# setup ssh keys dir
+RUN mkdir /root/.ssh
+RUN chmod 700 /root/.ssh

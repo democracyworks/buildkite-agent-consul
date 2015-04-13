@@ -9,19 +9,24 @@ TimeoutStartSec=10m
 TimeoutStopSec=10m
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent-coreos
-Environment=VERSION=github-ssh-access-f301902
+Environment=VERSION=github-ssh-access-e7e60de
 Environment=CONTAINER=buildkite-agent-coreos
+Environment=HOME=/root
 
 ExecStartPre=-/usr/bin/docker kill ${CONTAINER}
 ExecStartPre=-/usr/bin/docker rm ${CONTAINER}
+# Setting up dockercfg here allows pulls from private quay.io repos
+ExecStartPre=/usr/bin/curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw -o /root/.dockercfg
 ExecStartPre=/usr/bin/docker pull ${DOCKER_REPO}:${VERSION}
+
+# Allow pulls from private github repos
+ExecStartPre=/usr/bin/curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw -o /root/.ssh/id_rsa
+ExecStartPre=/bin/chmod 600 /root/.ssh/id_rsa
 
 ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env BUILDKITE_AGENT_TOKEN=$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/agent-token?raw) \
   --env BUILDKITE_AGENT_META_DATA=coreos=true \
-  --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
   --env FLEETCTL_ENDPOINT=http://${COREOS_PRIVATE_IPV4}:4001 \
-  --env GITHUB_PRIVATE_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   ${DOCKER_REPO}:${VERSION}'
 
