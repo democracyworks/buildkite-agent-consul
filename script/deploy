@@ -28,8 +28,6 @@ perl -p -i -e "s/^Environment=VERSION=.+$/Environment=VERSION=${IMAGE_TAG}/" bui
 fleetctl destroy buildkite@.service
 fleetctl submit buildkite@.service
 
-echo '--- (re-)starting fleet service instances'
-for i in {1..3}; do
-  fleetctl destroy buildkite@$i
-  fleetctl start buildkite@$i
-done
+echo '--- (re-)starting fleet service instance'
+fleetctl destroy buildkite@1
+fleetctl start buildkite@1
