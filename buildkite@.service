@@ -21,7 +21,7 @@ ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env BUILDKITE_AGENT_META_DATA=coreos=true \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
   --env FLEETCTL_ENDPOINT=http://${COREOS_PRIVATE_IPV4}:4001 \
-  --env GITHUB_PRIVATE_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/private-key?raw)\" \
+  --env GITHUB_PRIVATE_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   ${DOCKER_REPO}:${VERSION}'
 
