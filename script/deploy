@@ -25,7 +25,7 @@ fi
 IMAGE_TAG=$(echo $DOCKER_IMAGE | awk -F: '{print $2}')
 
 echo '--- updating fleet service template'
-perl -p -i -e "s/^Environment=VERSION=.+$/Environment=VERSION=${IMAGE_TAG}/" ${SERVICE}@.service
+perl -p -i -e "s/^Environment=VERSION=.*$/Environment=VERSION=${IMAGE_TAG}/" ${SERVICE}@.service
 
 fleetctl destroy ${SERVICE}@.service
 fleetctl submit ${SERVICE}@.service
