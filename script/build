@@ -6,6 +6,11 @@ if [[ -z $DOCKER_REPO && -n $1 ]]; then
   DOCKER_REPO=$1
 fi
 
+if [[ -z $DOCKER_REPO ]]; then
+  echo 'ERROR: DOCKER_REPO or command line arg required.'
+  exit 1
+fi
+
 echo '--- pulling latest base image'
 docker pull $(grep '^FROM' Dockerfile | awk '{print $2}')
 
