@@ -11,4 +11,4 @@ if [[ -n "${DOCKERCFG}" ]]; then
   echo "${DOCKERCFG}" > /root/.dockercfg
 fi
 
-exec buildkite-agent start $@
+exec buildkite-agent $@

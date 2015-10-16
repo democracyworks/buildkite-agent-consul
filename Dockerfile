@@ -17,7 +17,7 @@ RUN tar -C /tmp -xzf /tmp/fleet.tar.gz && mv /tmp/fleet-v${FLEETCTL_VERSION}-lin
 RUN mkdir /root/.ssh
 RUN chmod 700 /root/.ssh
 
-COPY ./start /bin/start
+COPY ./setup-and-run-agent /bin/setup-and-run-agent
 
-ENTRYPOINT ["/bin/start"]
-CMD []
+ENTRYPOINT ["/bin/setup-and-run-agent"]
+CMD ["start"]
