@@ -27,6 +27,7 @@ ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
   --env GITHUB_PRIVATE_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
+  --volume /opt/bin/docker.static:/bin/docker \
   ${DOCKER_REPO}:${VERSION}'
 
 # USR2 will tell the agent to wrap up any currently-running builds and then shutdown
