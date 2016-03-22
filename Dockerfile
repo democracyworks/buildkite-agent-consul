@@ -1,7 +1,7 @@
 FROM buildkite/agent:latest
 MAINTAINER Democracy Works, Inc. <dev@democracy.works>
 
-ENV DOCKER_VERSION 1.5.0
+ENV DOCKER_VERSION 1.7.1
 ENV FLEETCTL_VERSION 0.11.5
 
 # install docker client
