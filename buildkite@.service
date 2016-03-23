@@ -11,7 +11,7 @@ TimeoutStartSec=10m
 TimeoutStopSec=10m
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent-coreos
-Environment=VERSION=2.1.8-docker-1.7.1
+Environment=VERSION=2.1.8
 Environment=CONTAINER=buildkite-agent
 Environment=HOME=/root
 
@@ -25,7 +25,7 @@ ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env BUILDKITE_AGENT_META_DATA=coreos=true \
   --env FLEETCTL_ENDPOINT=http://${COREOS_PRIVATE_IPV4}:4001 \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
-  --env GITHUB_PRIVATE_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
+  --env SSH_PRIVATE_RSA_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   --volume /opt/bin/docker.static:/bin/docker \
   ${DOCKER_REPO}:${VERSION}'
