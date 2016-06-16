@@ -11,7 +11,7 @@ TimeoutStartSec=10m
 TimeoutStopSec=10m
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent-coreos
-Environment=VERSION=2.1.8
+Environment=VERSION=2.1.13
 Environment=CONTAINER=buildkite-agent
 Environment=HOME=/root
 
