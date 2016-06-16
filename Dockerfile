@@ -1,7 +1,7 @@
 FROM buildkite/agent:latest
 MAINTAINER Democracy Works, Inc. <dev@democracy.works>
 
-ENV FLEETCTL_VERSION 0.11.5
+ENV FLEETCTL_VERSION 0.11.7
 
 # install fleetctl
 ADD https://github.com/coreos/fleet/releases/download/v${FLEETCTL_VERSION}/fleet-v${FLEETCTL_VERSION}-linux-amd64.tar.gz /tmp/fleet.tar.gz
