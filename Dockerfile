@@ -4,8 +4,8 @@ MAINTAINER Democracy Works, Inc. <dev@democracy.works>
 ENV DOCKER_VERSION 1.10.3
 ENV FLEETCTL_VERSION 0.11.7
 
-# install openssl
-RUN apk add --update openssl && rm -rf /var/cache/apk/*
+# install openssl and jq
+RUN apk add --update openssl jq && rm -rf /var/cache/apk/*
 
 # install docker client
 ADD https://get.docker.io/builds/Linux/x86_64/docker-${DOCKER_VERSION} /usr/bin/docker
