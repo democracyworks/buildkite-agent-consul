@@ -3,7 +3,8 @@ MAINTAINER Democracy Works, Inc. <dev@democracy.works>
 
 ENV FLEETCTL_VERSION 0.11.8
 
-# install openssl and jq
+# install openssl, jq and aws
+RUN pip install awscli
 RUN apk add --update --no-cache openssl jq
 
 # install fleetctl
