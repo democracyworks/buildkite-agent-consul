@@ -1,4 +1,4 @@
-FROM buildkite/agent:alpine-docker-1.11
+FROM buildkite/agent:2.6.3
 MAINTAINER Democracy Works, Inc. <dev@democracy.works>
 
 ENV FLEETCTL_VERSION 0.11.8

@@ -12,7 +12,7 @@ TimeoutStopSec=10m
 Restart=on-failure
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent-coreos
-Environment=VERSION=2.3.1
+Environment=VERSION=2.6.3
 Environment=CONTAINER=buildkite-agent
 Environment=HOME=/root
 
