@@ -12,7 +12,7 @@ TimeoutStopSec=10m
 Restart=on-failure
 
 Environment=DOCKER_REPO=quay.io/democracyworks/buildkite-agent-coreos
-Environment=VERSION=2.6.3
+Environment=VERSION=2.6.5
 Environment=CONTAINER=buildkite-agent
 Environment=HOME=/root
 
@@ -27,9 +27,7 @@ ExecStart=/bin/bash -c 'docker run --name ${CONTAINER} \
   --env FLEETCTL_ENDPOINT=http://${COREOS_PRIVATE_IPV4}:4001 \
   --env DOCKERCFG=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/buildkite/dockercfg?raw)\" \
   --env SSH_PRIVATE_RSA_KEY=\"$(curl -s http://${COREOS_PRIVATE_IPV4}:8500/v1/kv/github/deploy-private-key?raw)\" \
-  --env DOCKER_API_VERSION=\"$(docker version | grep "Server API version:" | awk \'{print $4}\')\" \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-  --volume /opt/bin/docker.static:/usr/bin/docker \
   ${DOCKER_REPO}:${VERSION}'
 
 # USR2 will tell the agent to wrap up any currently-running builds and then shutdown

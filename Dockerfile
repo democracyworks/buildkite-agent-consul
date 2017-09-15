@@ -1,15 +1,25 @@
-FROM buildkite/agent:2.6.3
-MAINTAINER Democracy Works, Inc. <dev@democracy.works>
+FROM buildkite/agent:2.6.5
+LABEL maintainer="Democracy Works, Inc. <dev@democracy.works>"
 
-ENV FLEETCTL_VERSION 0.11.8
+ARG FLEETCTL_VERSION=0.11.8
+ARG KUBECTL_VERSION=1.7.5
 
-# install openssl, jq and aws
-RUN pip install awscli
-RUN apk add --update --no-cache openssl jq
-
-# install fleetctl
-ADD https://github.com/coreos/fleet/releases/download/v${FLEETCTL_VERSION}/fleet-v${FLEETCTL_VERSION}-linux-amd64.tar.gz /tmp/fleet.tar.gz
-RUN tar -C /tmp -xzf /tmp/fleet.tar.gz && mv /tmp/fleet-v${FLEETCTL_VERSION}-linux-amd64/fleetctl /bin/ && \
-    rm -rf /tmp/fleet-v${FLEETCTL_VERSION}-linux-amd64 && rm /tmp/fleet.tar.gz
+RUN apk add --no-cache \
+## Install OpenSSL
+    openssl \
+  && pip install \
+## Install AWS CLI
+     awscli \
+## Install kubectl
+  && curl -sSo /usr/local/bin/kubectl \
+     https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_VERSION}/bin/linux/amd64/kubectl \
+  && chmod +x /usr/local/bin/kubectl \
+## Install fleetctl
+  && curl -sSLo /tmp/fleet.tar.gz \
+     https://github.com/coreos/fleet/releases/download/v${FLEETCTL_VERSION}/fleet-v${FLEETCTL_VERSION}-linux-amd64.tar.gz \
+  && tar -C /tmp -xzf /tmp/fleet.tar.gz \
+  && mv /tmp/fleet-v${FLEETCTL_VERSION}-linux-amd64/fleetctl /usr/local/bin/ \
+  && chmod +x /usr/local/bin/fleetctl \
+  && rm -rf /tmp/fleet*
 
 COPY hooks /buildkite/hooks
