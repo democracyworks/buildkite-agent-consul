@@ -1,4 +1,4 @@
-FROM buildkite/agent:2.6.5
+FROM buildkite/agent:3.0-beta.38
 LABEL maintainer="Democracy Works, Inc. <dev@democracy.works>"
 
 ARG FLEETCTL_VERSION=0.11.8
