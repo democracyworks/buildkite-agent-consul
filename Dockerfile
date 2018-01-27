@@ -2,7 +2,7 @@ FROM buildkite/agent:3.0-beta.38
 LABEL maintainer="Democracy Works, Inc. <dev@democracy.works>"
 
 ARG FLEETCTL_VERSION=0.11.8
-ARG KUBECTL_VERSION=1.7.5
+ARG KUBECTL_VERSION=1.9.2
 
 RUN apk add --no-cache \
 ## Install OpenSSL
